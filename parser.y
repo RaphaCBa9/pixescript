@@ -1,4 +1,4 @@
-/* parser.y - VERSÃO FINAL ROBUSTA (corrige conflito shift/reduce) */
+/* parser.y */
 %{
 #include <stdio.h>
 #include <stdlib.h>
@@ -59,9 +59,9 @@ char* generate_command_js(const char* cmd, const char* p1, const char* p2, const
 
 %%
 
-/* --- Regras da Gramática --- */
+/* gramatica */
 
-// A regra principal do programa
+// parse program
 programa:
     %empty 
     | programa comando { 
@@ -70,7 +70,7 @@ programa:
     }
     ;
 
-// Um bloco de comandos entre chaves, retorna todo o JS como uma única string
+// bloco de comandos entre chaves, retorna todo o JS como uma única string
 bloco_comandos:
     %empty { $$ = strdup(""); }
     | bloco_comandos comando { asprintf(&$$, "%s%s", $1, $2); free($1); free($2); }
