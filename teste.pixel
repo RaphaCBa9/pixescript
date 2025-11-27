@@ -1,0 +1,60 @@
+VAR tamanho_canvas = 400
+CANVAS tamanho_canvas, tamanho_canvas
+
+// --- Configuração Inicial ---
+VAR x = tamanho_canvas / 2
+VAR y = tamanho_canvas / 2
+MOVER x, y
+
+VAR a = 0
+VAR b = 1
+VAR escala = 4
+VAR direcao = 0
+VAR passos = 1
+VAR contador_passos = 0
+VAR contador_giros = 0
+
+// --- Loop Principal ---
+REPETIR 100 VEZES {
+    
+    // Desenha um ponto na posição atual da caneta
+    COR 0, 50, 120
+    PONTO
+
+    // Lógica de movimento em espiral (usando SE-SENAO aninhado)
+    SE direcao == 0 { 
+        x = x + escala 
+    } SENAO {
+        SE direcao == 1 { 
+            y = y - escala 
+        } SENAO {
+            SE direcao == 2 { 
+                x = x - escala 
+            } SENAO {
+                SE direcao == 3 { 
+                    y = y + escala 
+                }
+            }
+        }
+    }
+    MOVER x, y
+
+    contador_passos = contador_passos + 1
+    SE contador_passos == passos {
+        direcao = direcao + 1
+        contador_passos = 0
+        contador_giros = contador_giros + 1
+        
+        // Estrutura de SE-SENAO aninhada para a lógica de giro
+        SE contador_giros == 2 {
+            passos = passos + 1
+            contador_giros = 0
+        } SENAO {
+            // Nada a fazer se contador_giros != 2
+        }
+        
+        SE direcao > 3 {
+            direcao = 0
+        }
+    }
+}

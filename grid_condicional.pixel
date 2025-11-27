@@ -1,0 +1,46 @@
+// ----------------------------------------------------
+// Teste Complexo: Grid com Cores Condicionais
+// Versão Corrigida para desenhar uma grade 2x2
+// ----------------------------------------------------
+
+CANVAS 1000, 100
+
+VAR tamanho_celula = 50
+VAR metade_canvas = 50
+
+// --- Célula 1 (Superior Esquerda) ---
+MOVER 0, 0
+SE 0 < metade_canvas {
+    COR 0, 0, 255
+} SENAO {
+    COR 255, 165, 0
+}
+RETANGULO tamanho_celula, tamanho_celula
+
+
+// --- Célula 2 (Superior Direita) ---
+MOVER 50, 0
+SE 0 < metade_canvas {
+    COR 0, 255, 0
+} SENAO {
+    COR 255, 165, 0
+}
+RETANGULO tamanho_celula, tamanho_celula
+
+// --- Célula 3 (Inferior Esquerda) ---
+MOVER 0, 50
+SE 50 < metade_canvas {
+    COR 0, 0, 255
+} SENAO {
+    COR 255, 165, 0
+}
+RETANGULO tamanho_celula, tamanho_celula
+
+// --- Célula 4 (Inferior Direita) ---
+MOVER 50, 50
+SE 50 <= metade_canvas {
+    COR 255, 0, 0
+} SENAO {
+    COR 255, 165, 0
+}
+RETANGULO tamanho_celula, tamanho_celula

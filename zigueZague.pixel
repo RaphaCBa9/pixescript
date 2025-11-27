@@ -1,0 +1,29 @@
+// -----------------------------------------
+// Teste Final com Loops, Variáveis e Condicionais
+// Desenha uma grade 10x10
+// -----------------------------------------
+
+CANVAS 1000, 1000
+
+VAR num_celulas = 10
+VAR tamanho_canvas = 1000
+VAR tamanho_celula = tamanho_canvas / num_celulas
+
+VAR y = 0
+REPETIR num_celulas VEZES {
+    VAR x = 0
+    REPETIR num_celulas VEZES {
+        MOVER x, y
+        
+        // Pinta de azul ou laranja baseado na posição
+        SE (x + y) < tamanho_canvas {
+            COR 0, 0, 255 // Azul
+        } SENAO {
+            COR 255, 165, 0 // Laranja
+        }
+        
+        RETANGULO tamanho_celula, tamanho_celula
+        x = x + tamanho_celula
+    }
+    y = y + tamanho_celula
+}
