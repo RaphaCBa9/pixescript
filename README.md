@@ -7,7 +7,7 @@ Este projeto consiste na criação de uma linguagem de programação de alto ní
 ## Objetivos
 
 | Objetivo | Detalhes |
-| :--- | :--- | :--- |
+| :--- | :--- |
 | **Criar uma Linguagem de Programação** | A linguagem PixelScript foi criada com foco em desenho procedural. |
 | **Estruturas Básicas (Variáveis, Condicionais, Loops)** | Implementação de `VAR`, `SE...SENAO` e `REPETIR...VEZES`. |
 | **Análise Léxica e Sintática (Flex/Bison)** |  O compilador `pixelscript` foi desenvolvido usando Flex e Bison para gerar código C, que por sua vez gera o arquivo JavaScript da para interação com o HTML. |
