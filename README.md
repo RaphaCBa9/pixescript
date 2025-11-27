@@ -14,6 +14,7 @@ Este projeto consiste na criação de uma linguagem de programação de alto ní
 | **Utilizar uma VM** | O código é interpretado pelo motor JavaScript do navegador (VM). |
 | **Criar um Exemplo de Teste** | O script `fibonacci.pixel` demonstra o uso de todas as estruturas. |
 
+
 ## Processo de compilação
 
 O compilador `pixelscript` funciona em três etapas:
@@ -58,7 +59,86 @@ A gramática da PixelScript é definida da seguinte forma:
 <id>            ::= [a-zA-Z_][a-zA-Z0-9_]*
 <valor>         ::= -?[0-9]+
 ```
+## Showcase: fibonacci.pixel
 
+O script `fibonacci.pixel` demonstra o uso de todas as estruturas da linguagem para desenhar uma Espiral de Arquimedes com base na dimensão do canvas.
+
+### Código PixelScript
+
+```pixelscript
+// =======================================================
+// Desenho Showcase: Espiral de Arquimedes com Linhas (v1.0)
+// Demonstra o comando LINHA e a lógica de giro.
+// =======================================================
+
+VAR tamanho_canvas = 1000
+CANVAS tamanho_canvas, tamanho_canvas
+
+// --- Configuração Inicial ---
+VAR centro_x = tamanho_canvas / 2
+VAR centro_y = tamanho_canvas / 2
+VAR x = centro_x
+VAR y = centro_y
+MOVER x, y // Inicia a caneta no centro
+
+VAR escala = tamanho_canvas / 50
+VAR direcao = 0
+VAR passos = 1
+VAR contador_passos = 0
+VAR contador_giros = 0
+
+// --- Loop Principal ---
+REPETIR 100 VEZES {
+    
+    // Define a cor baseada na direção atual
+    SE direcao == 0 { COR 255, 0, 0 } // Vermelho (Direita)
+    SENAO {
+        SE direcao == 1 { COR 0, 255, 0 } // Verde (Cima)
+        SENAO {
+            SE direcao == 2 { COR 0, 0, 255 } // Azul (Esquerda)
+            SENAO {
+                SE direcao == 3 { COR 255, 165, 0 } // Laranja (Baixo)
+            }
+        }
+    }
+    
+    // Calcula o próximo ponto
+    VAR proximo_x = x
+    VAR proximo_y = y
+    
+    SE direcao == 0 { proximo_x = x + (passos * escala) } // Direita
+    SENAO {
+        SE direcao == 1 { proximo_y = y - (passos * escala) } // Cima
+        SENAO {
+            SE direcao == 2 { proximo_x = x - (passos * escala) } // Esquerda
+            SENAO {
+                SE direcao == 3 { proximo_y = y + (passos * escala) } // Baixo
+            }
+        }
+    }
+    
+    // Desenha a linha para o próximo ponto
+    LINHA proximo_x, proximo_y
+    
+    // Atualiza a posição da caneta para o final da linha
+    x = proximo_x
+    y = proximo_y
+    MOVER x, y
+
+    // Lógica de giro
+    direcao = direcao + 1
+    SE direcao > 3 {
+        direcao = 0
+    }
+    
+    contador_giros = contador_giros + 1
+    SE contador_giros == 2 {
+        passos = passos + 1
+        contador_giros = 0
+    }
+}
+
+```
 
 ## Como Compilar e Executar
 
