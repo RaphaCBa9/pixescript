@@ -1,6 +1,7 @@
 // =======================================================
-// Desenho Showcase: Espiral de Arquimedes com Linhas (v1.0)
-// Demonstra o comando LINHA e a lógica de giro.
+// Desenho Showcase: Espiral de Arquimedes com Linhas
+// Demonstra o comando LINHA, declaração de variaveis VAR,
+// condicionais SE / SENAO, e loops REPETIR ... VEZES.
 // =======================================================
 
 VAR tamanho_canvas = 200

@@ -37,7 +37,7 @@ char* generate_command_js(const char* cmd, const char* p1, const char* p2, const
 
 %}
 
-/* --- Declarações de Tipos e Tokens --- */
+/*tokens*/
 %union { char *sval; }
 
 %token <sval> TOKEN_PALAVRA_CHAVE
@@ -76,13 +76,11 @@ bloco_comandos:
     | bloco_comandos comando { asprintf(&$$, "%s%s", $1, $2); free($1); free($2); }
     ;
 
-// --- NOVA ESTRUTURA DE COMANDOS PARA RESOLVER AMBIGUIDADE ---
 comando:
     comando_fechado { $$ = $1; }
     | comando_aberto  { $$ = $1; }
     ;
 
-// Comandos que não podem ser estendidos (não terminam com um SE sem SENAO)
 comando_fechado:
     comando_nao_se { $$ = $1; }
     | TOKEN_PALAVRA_CHAVE condicao '{' bloco_comandos '}' TOKEN_PALAVRA_CHAVE '{' bloco_comandos '}' { // SE-SENAO
@@ -95,7 +93,6 @@ comando_fechado:
     }
     ;
 
-// Comandos que podem ser estendidos (terminam com um SE sem SENAO)
 comando_aberto:
     TOKEN_PALAVRA_CHAVE condicao '{' bloco_comandos '}' { // SE sozinho
         char* temp_str = NULL;
@@ -107,14 +104,13 @@ comando_aberto:
     }
     ;
 
-// Todos os outros comandos que não são 'SE'
 comando_nao_se:
     TOKEN_PALAVRA_CHAVE expressao ',' expressao { $$ = generate_command_js($1, $2, $4, NULL); free($1); free($2); free($4); }
     | TOKEN_PALAVRA_CHAVE expressao ',' expressao ',' expressao { $$ = generate_command_js($1, $2, $4, $6); free($1); free($2); free($4); free($6); }
     | TOKEN_PALAVRA_CHAVE { $$ = generate_command_js($1, NULL, NULL, NULL); free($1); }
     | TOKEN_PALAVRA_CHAVE TOKEN_VALOR '=' expressao { $$ = generate_command_js($1, $2, $4, NULL); free($1); free($2); free($4); }
     | TOKEN_VALOR '=' expressao { asprintf(&$$, "%s = %s;\n", $1, $3); free($1); free($3); }
-    | TOKEN_PALAVRA_CHAVE expressao TOKEN_PALAVRA_CHAVE '{' bloco_comandos '}' { // REPETIR
+    | TOKEN_PALAVRA_CHAVE expressao TOKEN_PALAVRA_CHAVE '{' bloco_comandos '}' {
         char* temp_str = NULL;
         if (strcmp($1, "REPETIR") == 0 && strcmp($3, "VEZES") == 0) {
             asprintf(&temp_str, "for (let _i = 0; _i < %s; _i++) {\n%s}\n", $2, $5);
@@ -129,9 +125,7 @@ expressao: TOKEN_VALOR { $$ = $1; } | expressao '+' expressao { asprintf(&$$, "(
 
 %%
 
-/* --- Código C Auxiliar --- */
 
-// Função principal que inicia o processo
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "Uso: %s <arquivo_de_saida.js>\n", argv[0]);
@@ -144,7 +138,7 @@ int main(int argc, char *argv[]) {
     }
     
     // Escreve o cabeçalho do arquivo JavaScript
-    fprintf(output_file, "// Arquivo gerado pelo compilador PixelScript (vFinal Robusta)\n\n");
+    fprintf(output_file, "// Arquivo gerado pelo compilador PixelScript\n\n");
     fprintf(output_file, "let pen_x = 0; let pen_y = 0; let pen_thickness = 1;\n\n");
     
     // Inicia a análise
@@ -157,7 +151,7 @@ int main(int argc, char *argv[]) {
     return 0;
 }
 
-// Função de tratamento de erros chamada pelo Bison
+
 void yyerror(char const *s) {
     fprintf(stderr, "Erro de sintaxe. Verifique seu código PixelScript.\n");
 }
