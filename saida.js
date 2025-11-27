@@ -1,4 +1,4 @@
-// Arquivo gerado pelo compilador PixelScript (vFinal Robusta)
+// Arquivo gerado pelo compilador PixelScript
 
 let pen_x = 0; let pen_y = 0; let pen_thickness = 1;
 
