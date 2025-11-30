@@ -14,14 +14,13 @@ Este projeto consiste na criação de uma linguagem de programação de alto ní
 | **Utilizar uma VM** | O código é interpretado pelo motor JavaScript do navegador (VM). |
 | **Criar um Exemplo de Teste** | O script `fibonacci.pixel` demonstra o uso de todas as estruturas. |
 
-
 ## Processo de compilação
 
 O compilador `pixelscript` funciona em três etapas:
 
-1.  **Análise Léxica com Flex:** O arquivo `lexer.l` lê o código-fonte da PixelScript e o transforma em *tokens* (palavras-chave, identificadores, valores, operadores).
-2.  **Análise Sintática com Bison:** O arquivo `parser.y` recebe os tokens e verifica se a sequência obedece à gramática (EBNF). Ações C/C++ são executadas para cada regra sintática reconhecida.
-3.  **Geração de Código (C):** As ações do Bison geram o código JavaScript correspondente, escrevendo-o no arquivo de saída (`saida.js`).
+1. **Análise Léxica com Flex:** O arquivo `lexer.l` lê o código-fonte da PixelScript e o transforma em *tokens* (palavras-chave, identificadores, valores, operadores).
+2. **Análise Sintática com Bison:** O arquivo `parser.y` recebe os tokens e verifica se a sequência obedece à gramática (EBNF). Ações C/C++ são executadas para cada regra sintática reconhecida.
+3. **Geração de Código:** As ações do Bison geram o código JavaScript correspondente, escrevendo-o no arquivo de saída (`saida.js`).
 
 ## EBNF da PixelScript
 
@@ -59,6 +58,7 @@ A gramática da PixelScript é definida da seguinte forma:
 <id>            ::= [a-zA-Z_][a-zA-Z0-9_]*
 <valor>         ::= -?[0-9]+
 ```
+
 ## Showcase: fibonacci.pixel
 
 O script `fibonacci.pixel` demonstra o uso de todas as estruturas da linguagem para desenhar uma Espiral de Arquimedes com base na dimensão do canvas.
@@ -140,26 +140,38 @@ REPETIR 100 VEZES {
 
 ```
 
+___
+
 ## Como Compilar e Executar
 
-1.  **Compilação:** Certifique-se de que `flex` e `bison` estão instalados.
+0. **Pré-requisitos:** Requisições de sistema:
+
+    - `Ubuntu/Debian` ou outro sistema compatível com `gcc`, `flex` e `bison`.
+    - Navegador web (Chrome, Firefox, Edge, etc.)
+
+1. **Compilação:** Certifique-se de que `flex` e `bison` estão instalados.
+
     ```bash
-    bison -d -o parser.tab.c parser.y
-    gcc -Wall -Wno-unused-function -c -o parser.tab.o parser.tab.c
-    flex -o lexer.c lexer.l
-    gcc -Wall -Wno-unused-function -c -o lexer.o lexer.c
-    gcc -o pixelscript parser.tab.o lexer.o
+        bison -d -o parser.tab.c parser.y
+        gcc -Wall -Wno-unused-function -c -o parser.tab.o parser.tab.c
+        flex -o lexer.c lexer.l
+        gcc -Wall -Wno-unused-function -c -o lexer.o lexer.c
+        gcc -o pixelscript parser.tab.o lexer.o
     ```
-2.  **Execução:** Compile o código PixelScript para JavaScript.
+
+2. **Execução:** Compile o código PixelScript para JavaScript.
+
     ```bash
     ./pixelscript saida.js < seu_script.pixel
     ```
+
     Este comando gerará um arquivo `saida.js`
-    
-3.  **Visualização:** Abra um arquivo `.html` que contenha uma tag `<Canvas>` com `id="pixelCanvas"`, e uma self-closing tag `<script>` que carrega `saida.js`, com `src="saida.js"`, isso pode ser feito em qualquer navegador.
+
+3. **Visualização:** Abra um arquivo `.html` que contenha uma tag `<Canvas>` com `id="pixelCanvas"`, e uma self-closing tag `<script>` que carrega `saida.js`, com `src="saida.js"`, isso pode ser feito em qualquer navegador.
 
    Exemplo de `template.html`:
-   ```html
+
+```html
   <!DOCTYPE html>
 <html lang="pt-br">
 <head>
