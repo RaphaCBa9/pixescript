@@ -137,14 +137,15 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
-    // Escreve o cabeçalho do arquivo JavaScript
+    // cabeçalho do arquivo
     fprintf(output_file, "// Arquivo gerado pelo compilador PixelScript\n\n");
     fprintf(output_file, "let pen_x = 0; let pen_y = 0; let pen_thickness = 1;\n\n");
     
-    // Inicia a análise
+    fprintf(output_file, "// Aqui começa o código gerado\n");
     yyparse();
+    fprintf(output_file, "// Aqui termina o código gerado\n");
     
-    // Escreve o rodapé do arquivo
+    // footer do arquivo
     fprintf(output_file, "\nconsole.log('Execução do PixelScript finalizada.');\n");
     fclose(output_file);
     printf("Arquivo '%s' gerado com sucesso.\n", argv[1]);
