@@ -2,7 +2,8 @@
 
 let pen_x = 0; let pen_y = 0; let pen_thickness = 1;
 
-let tamanho_canvas = 200;
+// Aqui começa o código gerado
+let tamanho_canvas = 1000;
 const canvas = document.getElementById('pixelCanvas');
 const ctx = canvas.getContext('2d');
 canvas.width = tamanho_canvas;
@@ -69,5 +70,6 @@ passos = (passos + 1);
 contador_giros = 0;
 }
 }
+// Aqui termina o código gerado
 
 console.log('Execução do PixelScript finalizada.');

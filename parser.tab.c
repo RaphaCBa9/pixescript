@@ -542,11 +542,11 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
 /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_uint8 yyrline[] =
+static const yytype_int8 yyrline[] =
 {
-       0,    66,    66,    67,    75,    76,    81,    82,    87,    88,
-     100,   112,   113,   114,   115,   116,   117,   127,   128,   128,
-     128,   128,   128,   128
+       0,    66,    66,    67,    75,    76,    80,    81,    85,    86,
+      97,   108,   109,   110,   111,   112,   113,   123,   124,   124,
+     124,   124,   124,   124
 };
 #endif
 
@@ -1155,25 +1155,25 @@ yyreduce:
     break;
 
   case 6: /* comando: comando_fechado  */
-#line 81 "parser.y"
+#line 80 "parser.y"
                     { (yyval.sval) = (yyvsp[0].sval); }
 #line 1161 "parser.tab.c"
     break;
 
   case 7: /* comando: comando_aberto  */
-#line 82 "parser.y"
+#line 81 "parser.y"
                       { (yyval.sval) = (yyvsp[0].sval); }
 #line 1167 "parser.tab.c"
     break;
 
   case 8: /* comando_fechado: comando_nao_se  */
-#line 87 "parser.y"
+#line 85 "parser.y"
                    { (yyval.sval) = (yyvsp[0].sval); }
 #line 1173 "parser.tab.c"
     break;
 
   case 9: /* comando_fechado: TOKEN_PALAVRA_CHAVE condicao '{' bloco_comandos '}' TOKEN_PALAVRA_CHAVE '{' bloco_comandos '}'  */
-#line 88 "parser.y"
+#line 86 "parser.y"
                                                                                                      { // SE-SENAO
         char* temp_str = NULL;
         if (strcmp((yyvsp[-8].sval), "SE") == 0 && strcmp((yyvsp[-3].sval), "SENAO") == 0) {
@@ -1186,7 +1186,7 @@ yyreduce:
     break;
 
   case 10: /* comando_aberto: TOKEN_PALAVRA_CHAVE condicao '{' bloco_comandos '}'  */
-#line 100 "parser.y"
+#line 97 "parser.y"
                                                         { // SE sozinho
         char* temp_str = NULL;
         if (strcmp((yyvsp[-4].sval), "SE") == 0) {
@@ -1199,38 +1199,38 @@ yyreduce:
     break;
 
   case 11: /* comando_nao_se: TOKEN_PALAVRA_CHAVE expressao ',' expressao  */
-#line 112 "parser.y"
+#line 108 "parser.y"
                                                 { (yyval.sval) = generate_command_js((yyvsp[-3].sval), (yyvsp[-2].sval), (yyvsp[0].sval), NULL); free((yyvsp[-3].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1205 "parser.tab.c"
     break;
 
   case 12: /* comando_nao_se: TOKEN_PALAVRA_CHAVE expressao ',' expressao ',' expressao  */
-#line 113 "parser.y"
+#line 109 "parser.y"
                                                                 { (yyval.sval) = generate_command_js((yyvsp[-5].sval), (yyvsp[-4].sval), (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-5].sval)); free((yyvsp[-4].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1211 "parser.tab.c"
     break;
 
   case 13: /* comando_nao_se: TOKEN_PALAVRA_CHAVE  */
-#line 114 "parser.y"
+#line 110 "parser.y"
                           { (yyval.sval) = generate_command_js((yyvsp[0].sval), NULL, NULL, NULL); free((yyvsp[0].sval)); }
 #line 1217 "parser.tab.c"
     break;
 
   case 14: /* comando_nao_se: TOKEN_PALAVRA_CHAVE TOKEN_VALOR '=' expressao  */
-#line 115 "parser.y"
+#line 111 "parser.y"
                                                     { (yyval.sval) = generate_command_js((yyvsp[-3].sval), (yyvsp[-2].sval), (yyvsp[0].sval), NULL); free((yyvsp[-3].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1223 "parser.tab.c"
     break;
 
   case 15: /* comando_nao_se: TOKEN_VALOR '=' expressao  */
-#line 116 "parser.y"
+#line 112 "parser.y"
                                 { asprintf(&(yyval.sval), "%s = %s;\n", (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1229 "parser.tab.c"
     break;
 
   case 16: /* comando_nao_se: TOKEN_PALAVRA_CHAVE expressao TOKEN_PALAVRA_CHAVE '{' bloco_comandos '}'  */
-#line 117 "parser.y"
-                                                                               { // REPETIR
+#line 113 "parser.y"
+                                                                               {
         char* temp_str = NULL;
         if (strcmp((yyvsp[-5].sval), "REPETIR") == 0 && strcmp((yyvsp[-3].sval), "VEZES") == 0) {
             asprintf(&temp_str, "for (let _i = 0; _i < %s; _i++) {\n%s}\n", (yyvsp[-4].sval), (yyvsp[-1].sval));
@@ -1242,43 +1242,43 @@ yyreduce:
     break;
 
   case 17: /* condicao: expressao TOKEN_OPERADOR_COMP expressao  */
-#line 127 "parser.y"
+#line 123 "parser.y"
                                                   { asprintf(&(yyval.sval), "%s %s %s", (yyvsp[-2].sval), (yyvsp[-1].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[-1].sval)); free((yyvsp[0].sval)); }
 #line 1248 "parser.tab.c"
     break;
 
   case 18: /* expressao: TOKEN_VALOR  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                        { (yyval.sval) = (yyvsp[0].sval); }
 #line 1254 "parser.tab.c"
     break;
 
   case 19: /* expressao: expressao '+' expressao  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                                                               { asprintf(&(yyval.sval), "(%s + %s)", (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1260 "parser.tab.c"
     break;
 
   case 20: /* expressao: expressao '-' expressao  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                                                                                                                                                     { asprintf(&(yyval.sval), "(%s - %s)", (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1266 "parser.tab.c"
     break;
 
   case 21: /* expressao: expressao '*' expressao  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                                                                                                                                                                                                                                           { asprintf(&(yyval.sval), "(%s * %s)", (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1272 "parser.tab.c"
     break;
 
   case 22: /* expressao: expressao '/' expressao  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                                                                                                                                                                                                                                                                                                                                 { asprintf(&(yyval.sval), "(%s / %s)", (yyvsp[-2].sval), (yyvsp[0].sval)); free((yyvsp[-2].sval)); free((yyvsp[0].sval)); }
 #line 1278 "parser.tab.c"
     break;
 
   case 23: /* expressao: '(' expressao ')'  */
-#line 128 "parser.y"
+#line 124 "parser.y"
                                                                                                                                                                                                                                                                                                                                                                                                                 { asprintf(&(yyval.sval), "(%s)", (yyvsp[-1].sval)); free((yyvsp[-1].sval)); }
 #line 1284 "parser.tab.c"
     break;
@@ -1477,12 +1477,10 @@ yyreturnlab:
   return yyresult;
 }
 
-#line 130 "parser.y"
+#line 126 "parser.y"
 
 
-/* --- Código C Auxiliar --- */
 
-// Função principal que inicia o processo
 int main(int argc, char *argv[]) {
     if (argc < 2) {
         fprintf(stderr, "Uso: %s <arquivo_de_saida.js>\n", argv[0]);
@@ -1494,21 +1492,22 @@ int main(int argc, char *argv[]) {
         return 1;
     }
     
-    // Escreve o cabeçalho do arquivo JavaScript
-    fprintf(output_file, "// Arquivo gerado pelo compilador PixelScript (vFinal Robusta)\n\n");
+    // cabeçalho do arquivo
+    fprintf(output_file, "// Arquivo gerado pelo compilador PixelScript\n\n");
     fprintf(output_file, "let pen_x = 0; let pen_y = 0; let pen_thickness = 1;\n\n");
     
-    // Inicia a análise
+    fprintf(output_file, "// Aqui começa o código gerado\n");
     yyparse();
+    fprintf(output_file, "// Aqui termina o código gerado\n");
     
-    // Escreve o rodapé do arquivo
+    // footer do arquivo
     fprintf(output_file, "\nconsole.log('Execução do PixelScript finalizada.');\n");
     fclose(output_file);
     printf("Arquivo '%s' gerado com sucesso.\n", argv[1]);
     return 0;
 }
 
-// Função de tratamento de erros chamada pelo Bison
+
 void yyerror(char const *s) {
     fprintf(stderr, "Erro de sintaxe. Verifique seu código PixelScript.\n");
 }
