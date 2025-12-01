@@ -1,5 +1,5 @@
 
-CANVAS 1000, 100
+CANVAS 100, 100
 
 VAR tamanho_celula = 50
 VAR metade_canvas = 50

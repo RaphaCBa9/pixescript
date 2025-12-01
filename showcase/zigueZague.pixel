@@ -1,9 +1,9 @@
 
 
-CANVAS 1000, 1000
+CANVAS 100, 100
 
 VAR num_celulas = 10
-VAR tamanho_canvas = 1000
+VAR tamanho_canvas = 100
 VAR tamanho_celula = tamanho_canvas / num_celulas
 
 VAR y = 0

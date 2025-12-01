@@ -144,54 +144,76 @@ ___
 
 ## Como Compilar e Executar
 
-0. **Pré-requisitos:** Requisições de sistema:
+0. **Pré-requisitos:** 
 
     - `Ubuntu/Debian` ou outro sistema compatível com `gcc`, `flex` e `bison`.
     - Navegador web (Chrome, Firefox, Edge, etc.)
+    - Instalar Flex e Bison:
 
-1. **Compilação:** Certifique-se de que `flex` e `bison` estão instalados.
+        ```bash
+        sudo apt-get install flex bison
+        ```
 
-    ```bash
-        bison -d -o parser.tab.c parser.y
-        gcc -Wall -Wno-unused-function -c -o parser.tab.o parser.tab.c
-        flex -o lexer.c lexer.l
-        gcc -Wall -Wno-unused-function -c -o lexer.o lexer.c
-        gcc -o pixelscript parser.tab.o lexer.o
-    ```
+    - Instalar make (se ainda não estiver instalado):
 
-2. **Execução:** Compile o código PixelScript para JavaScript.
+        ```bash
+        sudo apt-get install build-essential
+        ```
+    <br>
+1. **Compilação:**
 
-    ```bash
-    ./pixelscript saida.js < seu_script.pixel
-    ```
+    - Na raiz do projeto, execute:
+
+        ```bash
+        make
+        ```
+
+        Isso gerará o executável `pixelscript`.
+
+    - Caso queira limpar os arquivos e compilar novamente, use:
+
+        ```bash
+        make clean
+        make
+        ```
+    <br>
+2. **Execução:**
+
+    - Compile o código PixelScript para JavaScript.
+
+        ```bash
+        ./pixelscript saida.js < seu_script.pixel
+        ```
 
     Este comando gerará um arquivo `saida.js`
+    <br>
 
-3. **Visualização:** Abra um arquivo `.html` que contenha uma tag `<Canvas>` com `id="pixelCanvas"`, e uma self-closing tag `<script>` que carrega `saida.js`, com `src="saida.js"`, isso pode ser feito em qualquer navegador.
+3. **Visualização:** 
+Abra um arquivo `.html` que contenha uma tag `<Canvas>` com `id="pixelCanvas"`, e uma self-closing tag `<script>` que carrega `saida.js`, com `src="saida.js"`, isso pode ser feito em qualquer navegador.
+    <br>
+   Exemplo de `template.html` disponível no repositório:
 
-   Exemplo de `template.html`:
+    ```html
+    <!DOCTYPE html>
+    <html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Resultado do PixelScript</title>
+        <style>
+            body { background-color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; }
+            canvas { background-color: #fff; border: 2px solid #555; image-rendering: pixelated; }
+        </style>
+    </head>
+    <body style="flex-direction: column;">
+        <div>
+            <h1 style="color: whitesmoke;">Seu Desenho PixelScript</h1>
+        </div>
 
-```html
-  <!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Resultado do PixelScript</title>
-    <style>
-        body { background-color: #333; display: flex; justify-content: center; align-items: center; height: 100vh; }
-        canvas { background-color: #fff; border: 2px solid #555; image-rendering: pixelated; }
-    </style>
-</head>
-<body style="flex-direction: column;">
-    <div>
-        <h1 style="color: whitesmoke;">Seu Desenho PixelScript</h1>
-    </div>
+        <div>
+            <canvas id="pixelCanvas"></canvas>
+        </div>
 
-    <div>
-        <canvas id="pixelCanvas"></canvas>
-    </div>
-
-    <script src="saida.js"></script>
-</body>
-</html>
-```
+        <script src="saida.js"></script>
+    </body>
+    </html>
+    ```
